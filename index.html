@@ -1,0 +1,27 @@
+
+
+<script>
+    async function getUserId() {
+        console.log('yes')
+        await fetch('/getuserid',{
+            method: 'GET',
+            headers: { 'Content-type': 'application/json' },
+        })
+            .then(res => res.text())
+            .then(res => {
+                console.log(res)
+                document.getElementById('idtest').innerHTML = 'UserId: ' + res
+                document.getElementById('idtest').href = 'https://roblox.com/users/' + res + '/profile'
+            })
+    }
+</script>
+
+<body onload="getUserId()">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <h1 style="text-align: center; top: 10px; font-size: 100px;">👍</h1>
+    <title>Good Job!</title>
+    <p style="text-align: center; font-size: 25px; top:0px">Your good to go!</p>
+    <a id="idtest" style="text-align: center; position: relative; display:block; top: -15px; font-size: 25px;"><strong>Loading...</strong></a>
+    <link>
+</body>
+
