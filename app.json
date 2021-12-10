@@ -8,22 +8,22 @@
         "Roblox"
     ],
     "env": {
-        ".ROBLOSECURITY cookie": {
+        "COOKIE": {
             "description": "This is required to take models; HIGLY reccomend that you create an alternate account for this",
             "required": "true",
             "value": ""
         },
-        "Has protection": {
+        "HAS_PROTECTION": {
             "description": "Prevents exploiters from abusing this; disable if testing in studio",
             "required": "true",
             "value": "true"
         },
-        "PlaceId": {
+        "PLACE_ID": {
             "description": "Place Id for the place that uses this; ONLY USE THIS IF YOU HAVE HAS PROTECTION ON",
             "required": "true",
             "value": "0"
         },
-        "Queue Time": {
+        "QUEUE_TIME": {
             "description": "Time waited before taking models; this is in miliseconds",
             "required": "true",
             "value": "120000"
