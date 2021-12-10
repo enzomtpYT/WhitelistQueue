@@ -14,7 +14,7 @@ const randomId = require('random-id');
 
 var varibles = process.env
 var cookie = varibles['.ROBLOSECURITY cookie']
-var hasprotection = varibles['Has protection']
+var hasprotection = varibles['Has protection'] === true
 var verifiedcodes = {}
 var userId = ''
 var queue = []
