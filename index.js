@@ -12,10 +12,9 @@ app.use(cors({}));
 
 const randomId = require('random-id');
 
-var filedata = fs.readFileSync(path.resolve(__dirname, 'varibles.json'))
-filedata = JSON.parse(filedata)
-var cookie = filedata.cookie
-var hasprotection = filedata.hasprotection
+var varibles = process.env
+var cookie = varibles['.ROBLOSECURITY cookie']
+var hasprotection = varibles['Has protection']
 var verifiedcodes = {}
 var userId = ''
 var queue = []
@@ -116,7 +115,7 @@ if (hasprotection === true) {
             return res.json({ success: false, msg: 'Code Already Taken' });
         }
         RobloxRequest(
-            `https://assetgame.roblox.com/Game/PlaceLauncher.ashx?request=RequestGameJob&placeId=${filedata.placeid}&gameId=${req.body.jobid}`,
+            `https://assetgame.roblox.com/Game/PlaceLauncher.ashx?request=RequestGameJob&placeId=${varibles['PlaceId']}&gameId=${req.body.jobid}`,
             'POST',
         function(err,res2,body) {
             if (IsJsonString(body) === true) {
@@ -235,7 +234,7 @@ app.listen(process.env.PORT || 3000, () => {
 
 async function test() {
     while (true) {
-        await new Promise(r => setTimeout(r, filedata.miliseconds));
+        await new Promise(r => setTimeout(r, varibles['Queue Time']));
         queue.forEach(async function(item) {
             RobloxRequest(`https://economy.roblox.com/v1/purchases/products/` + item, 'POST', function(err,res2,body) {
                 if (IsJsonString(body) === true) {
