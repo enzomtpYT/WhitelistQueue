@@ -6,6 +6,15 @@ const fs = require("fs")
 const path = require("path")
 const cors = require("cors")
 const app = express()
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 14,
+    message:
+        "Please stop sending alot of requests, this ends up spamming roblox's servers and getting this ip blocked"
+});
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors({}));
@@ -142,7 +151,7 @@ app.get('/', function (req, res) {
     }
 })
 
-app.post('/addtoqueue', function (req, res) {
+app.post('/addtoqueue',limiter, function (req, res) {
 
     if (userId === '') {
         return res.json({ success: false, msg: 'Invalid userid' });
