@@ -23,7 +23,7 @@ const randomId = require('random-id');
 
 var varibles = process.env
 var cookie = varibles['COOKIE']
-var hasprotection = varibles['HAS_PROTECTION'] === true
+var hasprotection = varibles['HAS_PROTECTION'] === 'true'
 var verifiedcodes = {}
 var userId = ''
 var queue = []
