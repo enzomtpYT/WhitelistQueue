@@ -24,6 +24,7 @@ var cookie = varibles['COOKIE']
 var hasprotection = varibles['HAS_PROTECTION'] === 'true'
 var verifiedcodes = {}
 var userId = ''
+var assetIdAndProduct = {}
 var queue = []
 var assetqueue = []
 
@@ -203,6 +204,7 @@ app.post('/addtoqueue',limiter, function (req, res) {
                                 if (res10.statusCode === 200) {
                                     if (body10.data.length === 0) {
                                         queue.push(body.ProductId);
+                                        assetIdAndProduct[body.ProductId] = req.body.assetid
                                         assetqueue.push(req.body.assetid)
                                         console.log('Added ' + req.body.assetid + ' to queue; Position ' + queue.length + '!')
                                         res.json({ success: true, msg: queue.length });
@@ -248,7 +250,7 @@ async function test() {
                     body = JSON.parse(body)
                     if (res2.statusCode === 200) {
                         if (body.purchased === true) {
-                            console.log('Whitelisted: ' + item + '!')
+                            console.log('Whitelisted: ' + assetIdAndProduct[item] + '!')
                             queue.pop(item)
                         }
                     }
