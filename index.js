@@ -122,24 +122,10 @@ if (hasprotection === true) {
         if (verifiedcodes[req.body.jobid] != undefined) {
             return res.json({ success: false, msg: 'Code Already Taken' });
         }
-        RobloxRequest(
-            `https://assetgame.roblox.com/Game/PlaceLauncher.ashx?request=RequestGameJob&placeId=${varibles['PLACE_ID']}&gameId=${req.body.jobid}`,
-            'POST',
-        function(err,res2,body) {
-            if (IsJsonString(body) === true) {
-                body = JSON.parse(body)
-                if (body.status === 2 || body.status === 6) {
-                    var code = GenerateSecureServerCode()
-                    verifiedcodes[req.body.jobid] = code
-                    res.json({ success: true, msg: code });
-                    } else {
-                    res.json({ success: false, msg: 'Invalid Job Id' });
-                }
-            } else {
-                res.json({ success: false, msg: 'Unknown Error!' });
-            }
-        })
-    })
+        var code = GenerateSecureServerCode()
+        verifiedcodes[req.body.jobid] = code
+        res.json({ success: true, msg: code });
+
 }
 
 app.get('/', function (req, res) {
