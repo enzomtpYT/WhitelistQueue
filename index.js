@@ -1,4 +1,3 @@
-
 const express = require("express")
 const bodyParser = require("body-parser")
 const request = require("request")
@@ -125,7 +124,7 @@ if (hasprotection === true) {
         var code = GenerateSecureServerCode()
         verifiedcodes[req.body.jobid] = code
         res.json({ success: true, msg: code });
-
+    });
 }
 
 app.get('/', function (req, res) {
@@ -134,9 +133,9 @@ app.get('/', function (req, res) {
     } else {
         res.sendFile(__dirname + '/error.html')
     }
-})
+});
 
-app.post('/addtoqueue',limiter, function (req, res) {
+app.post('/addtoqueue', limiter, function (req, res) {
 
     if (userId === '') {
         return res.json({ success: false, msg: 'Invalid userid' });
@@ -221,11 +220,11 @@ app.post('/addtoqueue',limiter, function (req, res) {
 
 app.get('/getuserid', function (req, res) {
     return res.status(200).send(userId.toString())
-})
-
-app.listen(process.env.PORT || 3000, () => {
 });
 
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Server is running on port ' + (process.env.PORT || 3000));
+});
 
 async function test() {
     while (true) {
@@ -241,10 +240,10 @@ async function test() {
                         }
                     }
                 } 
-            },true)
+            }, true)
             await new Promise(r => setTimeout(r, 2000));
         })
     }
 }
 
-test()
+test();
