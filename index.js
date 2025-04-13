@@ -94,12 +94,12 @@ function IsJsonString(str) {
     return true;
 }
 
-RobloxRequest(`https://www.roblox.com/mobileapi/userinfo`, 'GET', function(err,res2,body) {
+RobloxRequest(`https://users.roblox.com/v1/users/authenticated`, 'GET', function(err,res2,body) {
     if (IsJsonString(body) === true) {
         if (res2.statusCode === 200) {
             body = JSON.parse(body)
-            userId = body.UserID
-            console.log('WhitelistQueue successfully started up! User Id: ' + userId)
+            userId = body.id
+            console.log('WhitelistQueue successfully started up! User Id: ' + userId + ' | Username: ' + body.name)
             } else {
             console.error('Your .ROBLOSECURITY cookie is INCORRECT')
         }
