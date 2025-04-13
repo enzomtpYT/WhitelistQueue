@@ -177,7 +177,7 @@ app.post('/addtoqueue', limiter, function (req, res) {
         return res.json({ success: false, msg: 'Already in queue!' });
     }
 
-    RobloxRequest(`https://api.roblox.com/marketplace/productinfo?assetId=${req.body.assetid}`, 'GET', function(err,res2,body) {
+    RobloxRequest(`https://api.newstargeted.com/roblox/assets/v2/assetInfo.php?catalogId=${req.body.assetid}`, 'GET', function(err,res2,body) {
         if (IsJsonString(body) === true) {
             body = JSON.parse(body)
             if (res2.statusCode === 200) {
@@ -198,9 +198,11 @@ app.post('/addtoqueue', limiter, function (req, res) {
                                         }
                                 } else {
                                     res.json({ success: false, msg: 'Unknown Error!' });
+                                    console.error('Unknown Error!', err)
                                 }
                             } else {
                                 res.json({ success: false, msg: 'Unknown Error!' });
+                                console.error('Unknown Error!', err)
                             }
                         })
                     } else {
@@ -214,6 +216,7 @@ app.post('/addtoqueue', limiter, function (req, res) {
             }
         } else {
             res.json({ success: false, msg: 'Unknown Error!' });
+            console.error('Unknown Error!', err)
         }
     })
 })
@@ -229,6 +232,7 @@ app.listen(process.env.PORT || 3000, () => {
 async function test() {
     while (true) {
         await new Promise(r => setTimeout(r, varibles['QUEUE_TIME']));
+        console.log('Processing Queue... ' + queue.length + ' items left')
         queue.forEach(async function(item) {
             RobloxRequest(`https://economy.roblox.com/v1/purchases/products/` + item, 'POST', function(err,res2,body) {
                 if (IsJsonString(body) === true) {
